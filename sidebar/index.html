@@ -1,0 +1,712 @@
+
+<style>
+
+.site-navigation,
+.site-navigation * {
+    box-sizing: border-box;
+}
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 82px;
+    z-index: 9000;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 34px;
+
+    background: rgba(255, 255, 255, .90);
+    border-bottom: 1px solid rgba(15, 23, 42, .08);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    color: #0f172a;
+}
+
+.site-header-left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.site-menu-button {
+    width: 24px;
+    height: 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0;
+    margin-right: 30px;
+
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    transition: opacity .3s ease;
+}
+
+.site-menu-button:hover {
+    opacity: .5;
+}
+
+.site-menu-icon {
+    width: 20px;
+    height: 22px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.site-menu-icon span {
+    display: block;
+    width: 1.5px;
+    height: 100%;
+    background: #0f172a;
+}
+
+.site-current-page {
+    display: flex;
+    align-items: center;
+
+    font-family:
+        "Jost",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: .20em;
+    text-transform: uppercase;
+}
+
+.site-current-number {
+    margin-right: 12px;
+
+    font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: .15em;
+
+    color: #64748b;
+}
+
+
+
+.site-header-mark {
+    width: 22px;
+    height: 22px;
+    position: relative;
+}
+
+.site-header-mark::before {
+    content: "";
+
+    position: absolute;
+    inset: 2px;
+
+    border: 1.5px solid #0f172a;
+
+    clip-path: polygon(
+        0 0,
+        72% 0,
+        72% 20%,
+        100% 20%,
+        100% 100%,
+        20% 100%,
+        20% 72%,
+        0 72%
+    );
+}
+
+.site-header-mark::after {
+    content: "";
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    top: 6px;
+    right: 3px;
+
+    background: #0f172a;
+
+    box-shadow:
+        -7px 7px 0 #0f172a,
+        -3px 3px 0 #0f172a;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.site-sidebar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 360px;
+    z-index: 10000;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 48px 40px;
+
+    background: rgba(255, 255, 255, .94);
+
+    border-right: 1px solid rgba(15, 23, 42, .08);
+
+    box-shadow: 18px 0 50px rgba(15, 23, 42, .055);
+
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    transform: translateX(0);
+
+    transition:
+        transform 1s cubic-bezier(.16, 1, .3, 1),
+        opacity .4s ease;
+}
+
+.site-sidebar.is-closed {
+    transform: translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SIDEBAR HEADER
+========================================================= */
+
+.site-sidebar-header {
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 62px;
+}
+
+.site-sidebar-close {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 0;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-family:
+        "Jost",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    font-size: 29px;
+    font-weight: 300;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        color .3s ease,
+        transform .3s ease;
+}
+
+.site-sidebar-close:hover {
+    color: #0f172a;
+    transform: rotate(90deg);
+}
+
+.site-sidebar-close:active {
+    transform: rotate(90deg) scale(.9);
+}
+
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.site-sidebar-divider {
+    width: 100%;
+    height: 1px;
+
+    background: rgba(15, 23, 42, .12);
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.site-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.site-sidebar-link {
+    position: relative;
+
+    min-height: 57px;
+
+    display: flex;
+    align-items: center;
+
+    color: #1e293b;
+
+    text-decoration: none;
+
+    overflow: hidden;
+
+    transition:
+        color .35s ease,
+        transform .35s ease;
+}
+
+.site-sidebar-number {
+    width: 48px;
+    flex-shrink: 0;
+
+    font-family:
+        "Jost",
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    font-size: 10px;
+    font-weight: 400;
+
+    color: #64748b;
+
+    letter-spacing: .14em;
+}
+
+.site-sidebar-text {
+    font-family:
+        "Jost",
+        "Helvetica Neue",
+        Arial,
+        "Hiragino Sans",
+        "Meiryo",
+        sans-serif;
+
+    font-size: 17px;
+    font-weight: 500;
+
+    letter-spacing: .10em;
+
+    white-space: nowrap;
+
+    transition:
+        transform .4s cubic-bezier(.16, 1, .3, 1),
+        color .3s ease;
+}
+
+.site-sidebar-link::after {
+    content: "";
+
+    position: absolute;
+
+    left: 48px;
+    right: 0;
+    bottom: 4px;
+
+    height: 1px;
+
+    background: #0284c7;
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition:
+        transform .45s cubic-bezier(.16, 1, .3, 1);
+}
+
+.site-sidebar-link:hover {
+    color: #0284c7;
+}
+
+.site-sidebar-link:hover .site-sidebar-text {
+    transform: translateX(7px);
+}
+
+.site-sidebar-link:hover::after {
+    transform: scaleX(1);
+}
+
+
+
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.site-page {
+    min-height: 100vh;
+    padding-top: 82px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .site-header {
+        height: 64px;
+        padding: 0 18px;
+    }
+
+    .site-menu-button {
+        margin-right: 18px;
+    }
+
+    .site-current-page {
+        font-size: 13px;
+        letter-spacing: .12em;
+    }
+
+    .site-current-number {
+        margin-right: 8px;
+        font-size: 9px;
+    }
+
+    .site-sidebar {
+        width: 82vw;
+        min-width: 280px;
+
+        padding: 32px 24px;
+
+        box-shadow: 14px 0 40px rgba(15, 23, 42, .06);
+    }
+
+    .site-sidebar-header {
+        margin-bottom: 46px;
+    }
+
+    .site-sidebar-text {
+        font-size: 15px;
+        letter-spacing: .08em;
+    }
+
+    .site-sidebar-link {
+        min-height: 53px;
+    }
+
+    .site-page {
+        padding-top: 64px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .site-sidebar,
+    .site-sidebar-link,
+    .site-sidebar-text,
+    .site-menu-button,
+    .site-sidebar-close {
+        transition: none;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     ナビゲーション
+======================================================= -->
+
+<div class="site-navigation">
+
+
+    <!-- ===================================================
+         上部固定ヘッダー
+    ==================================================== -->
+
+    <header class="site-header">
+
+
+        <!-- 左：サイドバーを開く -->
+
+        <div class="site-header-left">
+
+            <button
+                class="site-menu-button"
+                id="siteMenuOpen"
+                type="button"
+                aria-label="メニューを開く"
+                aria-controls="siteSidebar"
+            >
+
+                <span class="site-menu-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+
+            </button>
+
+
+            <!-- 現在のページ -->
+
+            <div class="site-current-page">
+
+                <span class="site-current-number">
+                    
+                </span>
+
+                <span>
+                    しりとるのホームページ
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+
+    </header>
+
+
+
+    <!-- ===================================================
+         サイドバー
+    ==================================================== -->
+
+    <aside
+        class="site-sidebar"
+        id="siteSidebar"
+        aria-label="サイトメニュー"
+    >
+
+
+        <!-- Sidebar Header -->
+
+        <div class="site-sidebar-header">
+
+            <!-- ★ ここがXボタン -->
+
+            <button
+                class="site-sidebar-close"
+                id="siteMenuClose"
+                type="button"
+                aria-label="メニューを閉じる"
+            >
+                ×
+            </button>
+
+
+        </div>
+
+
+
+        <!-- 上ライン -->
+         <p>ようこそ！しりとるのホームページへ</p>
+
+        <div class="site-sidebar-divider"></div>
+
+
+
+        <!-- メニュー -->
+
+        <nav class="site-sidebar-nav">
+
+
+            <a href="#film" class="site-sidebar-link">
+
+                <span class="site-sidebar-number">
+                    01
+                </span>
+
+                <span class="site-sidebar-text">
+                    ホーム
+                </span>
+
+            </a>
+
+
+            <a href="#about" class="site-sidebar-link">
+
+                <span class="site-sidebar-number">
+                    02
+                </span>
+
+                <span class="site-sidebar-text">
+                    私への100の質問
+                </span>
+
+            </a>
+
+            <a href="#about" class="site-sidebar-link">
+
+                <span class="site-sidebar-number">
+                    03
+                </span>
+
+                <span class="site-sidebar-text">
+                    ブログ
+                </span>
+
+            </a>
+
+            <a href="#about" class="site-sidebar-link">
+
+                <span class="site-sidebar-number">
+                    04
+                </span>
+
+                <span class="site-sidebar-text">
+                    ギャラリー
+                </span>
+
+            </a>
+
+            <a href="#about" class="site-sidebar-link">
+
+                <span class="site-sidebar-number">
+                    05
+                </span>
+
+                <span class="site-sidebar-text">
+                    その他いろいろ
+                </span>
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+</div>
+
+<script>
+
+/* =========================================================
+   SIDEBAR CONTROL
+========================================================= */
+
+const siteSidebar = document.getElementById("siteSidebar");
+
+const siteMenuOpen = document.getElementById("siteMenuOpen");
+
+const siteMenuClose = document.getElementById("siteMenuClose");
+
+
+/* =========================================================
+   開く
+========================================================= */
+
+function openSidebar() {
+
+    siteSidebar.classList.remove("is-closed");
+
+}
+
+
+/* =========================================================
+   完全に閉じる
+========================================================= */
+
+function closeSidebar() {
+
+    siteSidebar.classList.add("is-closed");
+
+}
+
+
+/* =========================================================
+   上部の ||| ボタン
+========================================================= */
+
+siteMenuOpen.addEventListener("click", () => {
+
+    openSidebar();
+
+});
+
+
+/* =========================================================
+   サイドバーの × ボタン
+========================================================= */
+
+siteMenuClose.addEventListener("click", () => {
+
+    closeSidebar();
+
+});
+
+
+/* =========================================================
+   ESCでも閉じる
+========================================================= */
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape") {
+
+        closeSidebar();
+
+    }
+
+});
+
+
+/* =========================================================
+   メニューをクリックしたら閉じる
+   ※不要ならこの部分を削除
+========================================================= */
+
+document.querySelectorAll(".site-sidebar-link")
+.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        closeSidebar();
+
+    });
+
+});
+
+</script>
+
+
+</body>
+</html>
