@@ -1,8 +1,10 @@
-/*マス目模様の背景を作るCSS*/
+@charset "UTF-8";
 
+/* 背景・ベース */
 body {
   margin: 0;
-  min-height: 100vh; /* 画面全体の高さを確保 */
+  padding: 0;
+  min-height: 100vh;
   background-size: 40px 40px;
   background-image: 
     linear-gradient(to right, #dadada 1px, transparent 1px), 
@@ -10,20 +12,207 @@ body {
   background-color: #ffffff;
 }
 
-/*サイドバー用のCSS*/
+.site-navigation,
+.site-navigation * {
+  box-sizing: border-box;
+}
 
+/*画面の左側、上方向にマージン*/
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+body {
+      margin-left: 50px;
+      margin-right: 50px;
+      margin-top: 20px;
     }
-    /* iframeを画面全体に広げる */
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none; /* 枠線を消す */
-      display: block;
-    }
+
+/* ヘッダー */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 82px;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  padding: 0 34px;
+  background: rgba(255, 255, 255, .90);
+  border-bottom: 1px solid rgba(15, 23, 42, .08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #0f172a;
+}
+
+.site-header-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.site-menu-button {
+  width: 24px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  margin-right: 30px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: opacity .3s ease;
+}
+
+.site-menu-button:hover {
+  opacity: .5;
+}
+
+.site-menu-icon {
+  width: 20px;
+  height: 22px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.site-menu-icon span {
+  display: block;
+  width: 1.5px;
+  height: 100%;
+  background: #0f172a;
+}
+
+.site-current-page {
+  display: flex;
+  align-items: center;
+  font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .20em;
+  text-transform: uppercase;
+}
+
+/* サイドバー本体 */
+.site-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 360px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 40px;
+  background: rgba(255, 255, 255, .94);
+  border-right: 1px solid rgba(15, 23, 42, .08);
+  box-shadow: 18px 0 50px rgba(15, 23, 42, .055);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateX(0);
+  transition: transform 0.6s cubic-bezier(.16, 1, .3, 1), opacity .4s ease;
+}
+
+/* 閉じている時の状態 */
+.site-sidebar.is-closed {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-sidebar-header {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+}
+
+.site-sidebar-close {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  font-size: 29px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: color .3s ease, transform .3s ease;
+}
+
+.site-sidebar-close:hover {
+  color: #0f172a;
+  transform: rotate(90deg);
+}
+
+.site-sidebar-welcome {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.site-sidebar-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(15, 23, 42, .12);
+  margin-bottom: 24px;
+}
+
+/* ナビゲーションメニュー */
+.site-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.site-sidebar-link {
+  position: relative;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  color: #1e293b;
+  text-decoration: none;
+  transition: color .35s ease, transform .35s ease;
+}
+
+.site-sidebar-number {
+  width: 48px;
+  flex-shrink: 0;
+  font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
+  font-size: 11px;
+  color: #64748b;
+  letter-spacing: .14em;
+}
+
+.site-sidebar-text {
+  font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: .10em;
+  transition: transform .4s cubic-bezier(.16, 1, .3, 1);
+}
+
+.site-sidebar-link:hover {
+  color: #0284c7;
+}
+
+.site-sidebar-link:hover .site-sidebar-text {
+  transform: translateX(6px);
+}
+
+.site-page {
+  min-height: 100vh;
+  padding-top: 82px;
+}
+
+@media (max-width: 700px) {
+  .site-sidebar {
+    width: 82vw;
+    min-width: 280px;
+    padding: 32px 24px;
+  }
+}
+

@@ -5,19 +5,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>しりとるのホームページ</title>
   
-  <!-- Webフォント (Google Fonts) -->
+  <!-- Webフォント -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- CSSの読み込み -->
   <link rel="stylesheet" href="css/ALLpage.css">
+  <link rel="stylesheet" href="css/home.css">
+  <!-- 全部に適用させるHTML -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 </head>
 
-<!--ヘッダーの配置-->
-<header>
 <body>
-  <iframe src="sidebar/index.html" title="埋め込みページ"></iframe>
+
+<div class="site-navigation">
+
+  <!-- 固定ヘッダー -->
+  <header class="site-header">
+    <div class="site-header-left">
+      <button
+        class="site-menu-button"
+        id="siteMenuOpen"
+        type="button"
+        aria-label="メニューを開く"
+      >
+        <span class="site-menu-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+
+      <div class="site-current-page">
+        <span class="site-current-number"></span>
+        <span>しりとるのホームページ</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- サイドバー -->
+  <aside
+    class="site-sidebar is-closed"
+    id="siteSidebar"
+    aria-label="サイトメニュー"
+  >
+    <div class="site-sidebar-header">
+      <button
+        class="site-sidebar-close"
+        id="siteMenuClose"
+        type="button"
+        aria-label="メニューを閉じる"
+      >
+        ×
+      </button>
+    </div>
+
+    <p class="site-sidebar-welcome">ようこそ！しりとるのホームページへ</p>
+    <div class="site-sidebar-divider"></div>
+
+    <!-- メニューリスト -->
+    <nav class="site-sidebar-nav">
+      <a href="#home" class="site-sidebar-link">
+        <span class="site-sidebar-number">01</span>
+        <span class="site-sidebar-text">ホーム</span>
+      </a>
+
+      <a href="#questions" class="site-sidebar-link">
+        <span class="site-sidebar-number">02</span>
+        <span class="site-sidebar-text">私への100の質問</span>
+      </a>
+
+      <a href="#blog" class="site-sidebar-link">
+        <span class="site-sidebar-number">03</span>
+        <span class="site-sidebar-text">ブログ</span>
+      </a>
+
+      <a href="#gallery" class="site-sidebar-link">
+        <span class="site-sidebar-number">04</span>
+        <span class="site-sidebar-text">ギャラリー</span>
+      </a>
+
+      <a href="#others" class="site-sidebar-link">
+        <span class="site-sidebar-number">05</span>
+        <span class="site-sidebar-text">その他いろいろ</span>
+      </a>
+    </nav>
+  </aside>
+
+</div>
+
+<!-- メインコンテンツ -->
+<main class="site-page">
+
+  <!-- アクセスカウンター -->
+  <div class="media-container">
+    <span>あなたは</span>
+    <a href="https://www.stylemap.co.jp/"><img src="https://www.f-counter.net/j/67/1785495514/" alt="アクセスカウンターの表示に失敗しました。広告ブロッカーなどが影響している可能性があります。他の環境で試してみてください。"></a>
+    <span>番目の来場者です！！</span>
+  </div>
+
+
+  <p>キリ番踏み逃げ禁止！！ 踏んだらBBSにカキコしてね～♪</p>
+
+  <div class="marquee-container">
+  <div class="marquee-text">★★★ようこそ!しりとるのホームページへ!!!!!!!!!ゆっくりしていってね!!!!!!!!!!★★★</div>
+</div>
+
+<div class="profile">
+  <img src="sozai/home/icon.png" class="profile-icon" alt="アイコン">
+
+  <div class="profile-text">
+    <h3>しりとる</h3>
+    <a href="https://技術者倫理.com"><img src="https://img.shields.io/badge/%E6%8A%80%E8%A1%93%E8%80%85%E5%80%AB%E7%90%86-%E9%81%B5%E5%AE%88%E6%B8%88%E3%81%BF-0a0a0a?style=for-the-badge&labelColor=ffffff" alt="技術者倫理 遵守済み" /></a>
+    <p>こんにちは、しりとるです。
+     趣味はカメラと技術と学マス（手毬P）です。<br>
+    この頃BBS作ってるんですが、そこで画像を投稿できるようにしてるんです。<br>
+    そこでCloudflareのR2使って、やろうかなって思ってたんですが、そこの登録にクレカの登録が必要なんですよね。<br>
+    私が今持っているの は   プリペイドだけなんで登録ができないっていうかなしき、かなしき<br>
+    まぁどうにかなっているでしょう！<br>
+    以上！</p>
+  </div>
+</div>
+
+</main>
+
+<script>
+  const siteSidebar = document.getElementById("siteSidebar");
+  const siteMenuOpen = document.getElementById("siteMenuOpen");
+  const siteMenuClose = document.getElementById("siteMenuClose");
+
+  function openSidebar() {
+    siteSidebar.classList.remove("is-closed");
+  }
+
+  function closeSidebar() {
+    siteSidebar.classList.add("is-closed");
+  }
+
+  siteMenuOpen.addEventListener("click", openSidebar);
+  siteMenuClose.addEventListener("click", closeSidebar);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeSidebar();
+    }
+  });
+
+  document.querySelectorAll(".site-sidebar-link").forEach(link => {
+    link.addEventListener("click", closeSidebar);
+  });
+</script>
+
 </body>
-</header>
-
-
+</html>
