@@ -1,8 +1,14 @@
 /*アクセスカウンター */
-.media-container {
+.visitor-counter {
   display: flex;
-  align-items: center; /* 垂直方向の中央揃え */
-  gap: 10px;          /* テキストと画像の間の余白 */
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.visitor-counter img {
+  display: block;
+  height: auto;
 }
 
 
